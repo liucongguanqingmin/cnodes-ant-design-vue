@@ -9,6 +9,8 @@ Vue.use(Menu);
 Vue.use(Breadcrumb);
 Vue.use(Input);
 
+Vue.config.productionTip = false;
+
 const routes = [
   {
     path: "/",

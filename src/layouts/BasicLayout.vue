@@ -44,7 +44,7 @@
       </div>
     </a-layout-content>
     <a-layout-footer :style="{ textAlign: 'center' }">
-      Ant Design ©2018 Created by Ant UED
+      <Footer></Footer>
     </a-layout-footer>
   </a-layout>
 </template>
@@ -59,6 +59,7 @@
 </style>
 
 <script>
+import Footer from "@/layouts/footer.vue";
 export default {
   data() {
     return {
@@ -71,6 +72,9 @@ export default {
     changeMenu(item) {
       this.selectItem = item;
     }
+  },
+  components: {
+    Footer
   }
 };
 </script>
