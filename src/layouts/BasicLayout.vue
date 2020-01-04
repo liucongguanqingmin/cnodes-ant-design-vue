@@ -31,16 +31,19 @@
             margin: '10px 10px'
           }"
           :key="i"
-          v-for="(sub, i) in subList"
-          >{{ sub }}</a-breadcrumb-item
+          v-for="(route, i) in routes"
         >
+          <router-link :to="`?tag=${route.path}`">
+            {{ route.breadcrumbName }}
+          </router-link>
+        </a-breadcrumb-item>
       </a-breadcrumb>
       <a-breadcrumb v-else :style="{ margin: '16px 0' }">
         <a-breadcrumb-item>主页</a-breadcrumb-item>
         <a-breadcrumb-item>{{ selectItem }}</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-        Content
+        <Content v-bind:nav="nav"></Content>
       </div>
     </a-layout-content>
     <a-layout-footer :style="{ textAlign: 'center' }">
@@ -59,12 +62,21 @@
 </style>
 
 <script>
-import Footer from "@/layouts/footer.vue";
+import Footer from "@/layouts/Footer.vue";
+import Content from "@/layouts/Content.vue";
+
 export default {
   data() {
     return {
       menuList: ["首页", "新手入门", "API", "关于", "注册", "登录"],
-      subList: ["全部", "精华", "分享", "问答", "招聘", "客户端测试"],
+      routes: [
+        { breadcrumbName: "全部", path: "all" },
+        { breadcrumbName: "精华", path: "good" },
+        { breadcrumbName: "分享", path: "share" },
+        { breadcrumbName: "问答", path: "ask" },
+        { breadcrumbName: "招聘", path: "job" },
+        { breadcrumbName: "客户端测试", path: "dev" }
+      ],
       selectItem: "首页"
     };
   },
@@ -74,7 +86,13 @@ export default {
     }
   },
   components: {
-    Footer
+    Footer,
+    Content
+  },
+  computed: {
+    nav: function() {
+      return this.$route.query["tag"];
+    }
   }
 };
 </script>
