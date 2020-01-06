@@ -17,6 +17,12 @@ const routes = [
     name: "index",
     component: () =>
       import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout")
+  },
+
+  {
+    path: "/topic/:id",
+    name: "topic",
+    component: () => import(/* webpackChunkName: "layout" */ "../layouts/Topic")
   }
 ];
 

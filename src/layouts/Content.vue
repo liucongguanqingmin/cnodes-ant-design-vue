@@ -9,15 +9,15 @@
           {{ item.reply_count }}/{{ item.visit_count }}
         </span>
 
-        <span class="put_top">置顶</span>
-
-        <a
+        <span v-if="item.top" class="put_top">置顶</span>
+        <span v-if="item.good" class="put_good">精华</span>
+        <router-link
           class="topic_title"
-          href="/topic/5e0a0992ba8f6d46c4edfeb1"
           :title="item.title"
+          :to="{ path: '/topic/' + item.id }"
         >
           {{ item.title }}
-        </a>
+        </router-link>
       </div>
       <div class="right">
         <span>
@@ -66,6 +66,14 @@ div {
 .cell:hover {
   background-color: #e1e1e1;
 }
+.put_good,
+.put_top {
+  background: #80bd01;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+}
 </style>
 
 <script>
@@ -113,7 +121,9 @@ export default {
   props: ["nav"],
   mounted() {
     axios
-      .get("https://cnodejs.org/api/v1/topics?page=1&&limit=10")
+      .get(
+        "https://cnodejs.org/api/v1/topics?page=1&&limit=10&&tab=" + this.nav
+      )
       .then(response => {
         this.all = response.data;
       })

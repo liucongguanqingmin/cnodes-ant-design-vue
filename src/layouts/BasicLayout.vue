@@ -1,21 +1,6 @@
 <template>
   <a-layout id="components-layout-demo-fixed">
-    <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-      <div class="logo" />
-      <a-menu
-        theme="dark"
-        mode="horizontal"
-        :defaultSelectedKeys="['2']"
-        :style="{ lineHeight: '64px' }"
-      >
-        <a-menu-item
-          :key="i"
-          v-for="(item, i) in menuList"
-          @click="changeMenu(item)"
-          >{{ item }}</a-menu-item
-        >
-      </a-menu>
-    </a-layout-header>
+    <Header></Header>
     <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
       <a-breadcrumb
         separator=" "
@@ -33,7 +18,7 @@
           :key="i"
           v-for="(route, i) in routes"
         >
-          <router-link :to="`?tag=${route.path}`">
+          <router-link :to="`?tag=${route.path}`" @click.native="refresh">
             {{ route.breadcrumbName }}
           </router-link>
         </a-breadcrumb-item>
@@ -43,7 +28,7 @@
         <a-breadcrumb-item>{{ selectItem }}</a-breadcrumb-item>
       </a-breadcrumb>
       <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-        <Content v-bind:nav="nav"></Content>
+        <Content v-bind:nav="nav ? nav : 'all'"></Content>
       </div>
     </a-layout-content>
     <a-layout-footer :style="{ textAlign: 'center' }">
@@ -51,7 +36,7 @@
     </a-layout-footer>
   </a-layout>
 </template>
-<style>
+<style lang="less" scoped>
 #components-layout-demo-fixed .logo {
   width: 120px;
   height: 31px;
@@ -64,11 +49,11 @@
 <script>
 import Footer from "@/layouts/Footer.vue";
 import Content from "@/layouts/Content.vue";
+import Header from "@/layouts/Header.vue";
 
 export default {
   data() {
     return {
-      menuList: ["首页", "新手入门", "API", "关于", "注册", "登录"],
       routes: [
         { breadcrumbName: "全部", path: "all" },
         { breadcrumbName: "精华", path: "good" },
@@ -77,22 +62,22 @@ export default {
         { breadcrumbName: "招聘", path: "job" },
         { breadcrumbName: "客户端测试", path: "dev" }
       ],
-      selectItem: "首页"
+      selectItem: "首页",
+      nav: this.$route.query["tag"]
     };
   },
   methods: {
     changeMenu(item) {
       this.selectItem = item;
+    },
+    refresh() {
+      this.$router.go(0);
     }
   },
   components: {
+    Header,
     Footer,
     Content
-  },
-  computed: {
-    nav: function() {
-      return this.$route.query["tag"];
-    }
   }
 };
 </script>
