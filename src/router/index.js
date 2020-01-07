@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { Layout, Menu, Breadcrumb, Input } from "ant-design-vue";
+import { Layout, Menu, Breadcrumb, Input, Spin, Divider } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 
 Vue.use(VueRouter);
@@ -8,6 +8,8 @@ Vue.use(Layout);
 Vue.use(Menu);
 Vue.use(Breadcrumb);
 Vue.use(Input);
+Vue.use(Spin);
+Vue.use(Divider);
 
 Vue.config.productionTip = false;
 

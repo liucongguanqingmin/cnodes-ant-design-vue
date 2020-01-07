@@ -1,11 +1,26 @@
 <template>
   <a-layout id="components-layout-demo-fixed">
-    <Header></Header>
+    <Header> </Header>
 
-    <a-layout-content
-      :style="{ padding: '0 50px', marginTop: '64px' }"
-      v-html="all.data.content"
-    >
+    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+      <div v-if="all.data === undefined">
+        <loading>
+          页面正在加载中，请稍后
+        </loading>
+      </div>
+      <div v-else>
+        <Title>
+          {{ all.data.title }}
+        </Title>
+        <Publish
+          :createAt="all.data.create_at"
+          :loginName="all.data.author.loginname"
+          :visitCount="all.data.visit_count"
+          :tab="tab"
+        ></Publish>
+        <a-divider />
+        <p v-html="all.data && all.data.content"></p>
+      </div>
     </a-layout-content>
 
     <a-layout-footer :style="{ textAlign: 'center' }">
@@ -20,15 +35,22 @@
 import Header from "@/layouts/Header.vue";
 import Footer from "@/layouts/Footer.vue";
 import axios from "axios";
+import Loading from "@/components/Loading.vue";
+import Title from "@/components/Title.vue";
+import Publish from "@/components/Publish.vue";
 export default {
   data() {
     return {
-      all: {}
+      all: {},
+      tab: "首页"
     };
   },
   components: {
     Header,
-    Footer
+    Footer,
+    Loading,
+    Title,
+    Publish
   },
   mounted() {
     axios

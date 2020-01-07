@@ -16,6 +16,9 @@
         >
       </a-menu>
     </a-layout-header>
+    <div>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
