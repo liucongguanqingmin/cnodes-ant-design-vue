@@ -8,11 +8,8 @@
         :defaultSelectedKeys="['2']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item
-          :key="i"
-          v-for="(item, i) in menu"
-          @click="changeMenu(item)"
-          >{{ item }}</a-menu-item
+        <a-menu-item :key="i" v-for="(item, i) in menu">
+          <router-link :to="item.url"></router-link>{{ item.name }}</a-menu-item
         >
       </a-menu>
     </a-layout-header>
@@ -36,7 +33,14 @@
 export default {
   data() {
     return {
-      menu: ["首页", "新手入门", "API", "关于", "注册", "登录"]
+      menu: [
+        { name: "首页", url: "/home" },
+        { name: "新手入门", url: "getStart" },
+        { name: "API", url: "api" },
+        { name: "关于", url: "about" },
+        { name: "注册", url: "register" },
+        { name: "登录", url: "login" }
+      ]
     };
   }
 };

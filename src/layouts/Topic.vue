@@ -1,7 +1,6 @@
 <template>
   <a-layout id="components-layout-demo-fixed">
-    <Header> </Header>
-
+    <Header></Header>
     <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
       <div v-if="all.data === undefined">
         <loading>

@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import { Layout, Menu, Breadcrumb, Input, Spin, Divider } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 
+import Home from "../views/Home";
+
 Vue.use(VueRouter);
 Vue.use(Layout);
 Vue.use(Menu);
@@ -16,11 +18,16 @@ Vue.config.productionTip = false;
 const routes = [
   {
     path: "/",
-    name: "index",
+    redirect: "/home",
     component: () =>
-      import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout")
+      import(/* webpackChunkName: "layout" */ "../layouts/BasicLayout"),
+    children: [
+      {
+        path: "/home",
+        components: { Home }
+      }
+    ]
   },
-
   {
     path: "/topic/:id",
     name: "topic",
